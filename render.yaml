@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: flowence-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3002
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 30m
+      - key: REFRESH_TOKEN_EXPIRES_IN
+        value: 7d
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        value: onboarding@resend.dev
+      - key: RESEND_FROM_NAME
+        value: Flowence
+      - key: ENABLE_EMAIL_INVITES
+        value: true
+      - key: ENABLE_STRIPE_PAYMENTS
+        value: false
+      - key: ENABLE_BARCODE_SCANNER
+        value: true
+      - key: ENABLE_PWA
+        value: true
