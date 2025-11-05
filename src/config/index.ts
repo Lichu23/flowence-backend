@@ -6,7 +6,7 @@ dotenv.config();
 // Server configuration
 export const serverConfig = {
   port: parseInt(process.env['PORT'] || '3002', 10),
-  host: process.env['HOST'] || 'localhost',
+  host: process.env['HOST'] || '0.0.0.0',
   nodeEnv: process.env['NODE_ENV'] || 'development',
   appName: process.env['APP_NAME'] || 'Flowence',
   appVersion: process.env['APP_VERSION'] || '1.0.0',
