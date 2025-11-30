@@ -18,10 +18,10 @@ export class SaleController {
         return;
       }
       const payload: CreateSaleRequest = { ...req.body, store_id: storeId };
-      
-      // For cash payments, process immediately. For card payments, require payment confirmation
-      const isCardPayment = payload.payment_method === 'card';
-      const sale = await this.saleService.processSale(payload, userId, isCardPayment);
+
+      // For manual POS payments (cash or card), both are completed immediately
+      // Only set requirePaymentConfirmation=true for payment gateway integrations (Stripe, MercadoPago)
+      const sale = await this.saleService.processSale(payload, userId, false);
       res.status(201).json({ success: true, data: { sale, receipt_number: sale.receipt_number }, message: 'Sale processed successfully', timestamp: new Date().toISOString() });
     } catch (error) {
       res.status(400).json({ success: false, error: { code: 'SALE_FAILED', message: error instanceof Error ? error.message : 'Failed to process sale' }, timestamp: new Date().toISOString() });
