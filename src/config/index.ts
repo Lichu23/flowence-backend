@@ -49,6 +49,14 @@ export const loggingConfig = {
   file: process.env['LOG_FILE'] || 'logs/app.log'
 };
 
+// Stripe configuration
+export const stripeConfig = {
+  secretKey: process.env['STRIPE_SECRET_KEY']!,
+  publishableKey: process.env['STRIPE_PUBLISHABLE_KEY'],
+  webhookSecret: process.env['STRIPE_WEBHOOK_SECRET'],
+  apiVersion: (process.env['STRIPE_API_VERSION'] || '2025-09-30.clover') as any
+};
+
 // Feature flags
 export const featureFlags = {
   emailInvites: process.env['ENABLE_EMAIL_INVITES'] === 'true',
@@ -70,6 +78,7 @@ const config = {
   security: securityConfig,
   cors: corsConfig,
   logging: loggingConfig,
+  stripe: stripeConfig,
   features: featureFlags,
   devTools: devToolsConfig
 };

@@ -13,12 +13,11 @@ export class PaymentService {
   private stripe: Stripe;
 
   constructor() {
-    const apiKey = (process.env as any)['STRIPE_SECRET_KEY'] as string;
-    if (!apiKey) {
+    if (!config.stripe.secretKey) {
       throw new Error('Missing STRIPE_SECRET_KEY');
     }
-    this.stripe = new Stripe(apiKey, {
-      apiVersion: '2025-09-30.clover',
+    this.stripe = new Stripe(config.stripe.secretKey, {
+      apiVersion: config.stripe.apiVersion,
       typescript: true
     });
   }
