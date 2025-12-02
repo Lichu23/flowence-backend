@@ -10,8 +10,8 @@ import * as dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = process.env['SUPABASE_URL'];
+const supabaseServiceKey = process.env['SUPABASE_SERVICE_ROLE_KEY'];
 
 if (!supabaseUrl || !supabaseServiceKey) {
   console.error('❌ Error: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set in .env');
