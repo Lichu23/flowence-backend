@@ -379,6 +379,85 @@ export class StoreController {
   }
 
   /**
+   * Update store business size (owners only)
+   * @route POST /api/stores/:id/business-size
+   */
+  async updateBusinessSize(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const storeId = req.params['id'];
+      const userId = (req as any).user?.['id'];
+      const { business_size } = req.body;
+
+      if (!userId) {
+        const response: ApiResponse = {
+          success: false,
+          error: {
+            code: 'UNAUTHORIZED',
+            message: 'Authentication required'
+          },
+          timestamp: new Date().toISOString()
+        };
+        res.status(401).json(response);
+        return;
+      }
+
+      if (!storeId) {
+        const response: ApiResponse = {
+          success: false,
+          error: {
+            code: 'BAD_REQUEST',
+            message: 'Store ID is required'
+          },
+          timestamp: new Date().toISOString()
+        };
+        res.status(400).json(response);
+        return;
+      }
+
+      if (!business_size || (business_size !== 'small' && business_size !== 'medium_large')) {
+        const response: ApiResponse = {
+          success: false,
+          error: {
+            code: 'BAD_REQUEST',
+            message: 'Valid business size is required (small or medium_large)'
+          },
+          timestamp: new Date().toISOString()
+        };
+        res.status(400).json(response);
+        return;
+      }
+
+      // Verify user is owner of this store
+      const isOwner = await storeModel.isOwner(userId, storeId);
+      if (!isOwner) {
+        const response: ApiResponse = {
+          success: false,
+          error: {
+            code: 'FORBIDDEN',
+            message: 'Only store owners can update business size'
+          },
+          timestamp: new Date().toISOString()
+        };
+        res.status(403).json(response);
+        return;
+      }
+
+      const updatedStore = await storeModel.update(storeId, { business_size });
+
+      const response: ApiResponse = {
+        success: true,
+        data: updatedStore,
+        message: 'Business size updated successfully',
+        timestamp: new Date().toISOString()
+      };
+
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
    * Get exchange rate between two currencies
    * @route GET /api/stores/exchange-rate/:from/:to
    */

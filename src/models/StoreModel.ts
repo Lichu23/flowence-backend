@@ -63,7 +63,8 @@ export class StoreModel extends BaseModel {
           phone,
           currency,
           tax_rate,
-          logo_url
+          logo_url,
+          business_size
         )
       `)
       .eq('user_id', userId)
@@ -78,7 +79,8 @@ export class StoreModel extends BaseModel {
       name: us.store?.name,
       address: us.store?.address,
       role: us.role,
-      logo_url: us.store?.logo_url
+      logo_url: us.store?.logo_url,
+      business_size: us.store?.business_size
     })) || [];
   }
 
