@@ -29,6 +29,9 @@ export interface UserWithStores extends User {
   stores: Array<{
     id: string;
     name: string;
+    address?: string;
+    phone?: string;
+    business_size?: 'small' | 'medium_large';
     role: 'owner' | 'employee';
   }>;
 }
@@ -39,6 +42,7 @@ export interface UserProfile extends Omit<User, 'password_hash'> {
     name: string;
     address?: string;
     phone?: string;
+    business_size?: 'small' | 'medium_large';
     role: 'owner' | 'employee';
   }>;
 }

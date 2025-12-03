@@ -57,7 +57,8 @@ export class UserModel extends BaseModel {
           id,
           name,
           address,
-          phone
+          phone,
+          business_size
         )
       `)
       .eq('user_id', id);
@@ -67,6 +68,7 @@ export class UserModel extends BaseModel {
       name: us.store?.name,
       address: us.store?.address,
       phone: us.store?.phone,
+      business_size: us.store?.business_size,
       role: us.role
     })) || [];
 
