@@ -11,6 +11,7 @@ export interface Store {
   currency: string;
   tax_rate: number;
   low_stock_threshold: number;
+  business_size?: 'small' | 'medium_large';
   timezone?: string;
   date_format?: string;
   time_format?: string;
@@ -39,6 +40,7 @@ export interface UpdateStoreData {
   phone?: string;
   currency?: string;
   tax_rate?: number;
+  business_size?: 'small' | 'medium_large';
   timezone?: string;
   date_format?: string;
   time_format?: string;
@@ -107,7 +109,9 @@ export interface StoreListItem {
   name: string;
   address?: string;
   role: 'owner' | 'employee'; // User's role in this store
+  business_size?: 'small' | 'medium_large';
   product_count?: number;
   employee_count?: number;
   last_sale_date?: string;
+  logo_url?: string;
 }

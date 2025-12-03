@@ -29,6 +29,9 @@ router.get('/:id', storeController.getStoreById.bind(storeController));
 // Update store (owners only)
 router.put('/:id', storeController.updateStore.bind(storeController));
 
+// Update business size (owners only)
+router.post('/:id/business-size', storeController.updateBusinessSize.bind(storeController));
+
 // Delete store (owners only)
 router.delete('/:id', storeController.deleteStore.bind(storeController));
 
