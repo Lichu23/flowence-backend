@@ -35,7 +35,7 @@ export class UserStoreModel extends BaseModel {
       .from('user_stores')
       .select(`
         *,
-        user:users (*)
+        user:users (id, email, name, role, created_at, updated_at)
       `)
       .eq('store_id', storeId)
       .order('created_at', { ascending: false });
