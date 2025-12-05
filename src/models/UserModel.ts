@@ -182,7 +182,7 @@ export class UserModel extends BaseModel {
     const { data, error } = await this.supabase
       .from('user_stores')
       .select(`
-        user:users (*)
+        user:users (id, email, name, role, created_at, updated_at)
       `)
       .eq('store_id', storeId);
 
